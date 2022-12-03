@@ -1,5 +1,8 @@
 import LoginClient from './views/authentication/login-client';
 import LoginMerchant from './views/authentication/login-merchant';
+import RegisterClient from './views/authentication/register-client';
+import RegisterMerchant from './views/authentication/register-merchant';
+import ErrorPage from './views/error';
 import Home from './views/home';
 
 
@@ -43,6 +46,8 @@ const router = async () => {
         { path: '/', view: Home },
         { path: '/login/client', view: LoginClient },
         { path: '/login/merchant', view: LoginMerchant },
+        { path: '/register/client', view: RegisterClient },
+        { path: '/register/merchant', view: RegisterMerchant },
     ];
 
     // Test each route for a potential match.
@@ -57,7 +62,7 @@ const router = async () => {
 
     if (!match) {
         match = {
-            route: routes[0],
+            route: { path: '*', view: ErrorPage },
             result: [
                 location.pathname
             ]
