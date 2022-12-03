@@ -1,23 +1,26 @@
 import AbstractView from '../AbstractView';
 import model from '../../assets/prewedding.jpeg'
+import { API_URL } from '../../../config';
+import { stringify } from 'postcss';
 
 export default class LoginClient extends AbstractView {
     postID: string
     error: string
 
-
-
     constructor(params: Record<string, string>) {
         super(params);
         this.setTitle('Login Client');
     }
-    formID = 'LoginClient'
+    formID = 'login-client'
 
     heroPhotograph = model
 
     userType = "Client"
 
-    loginSubtitle = "search and book studio sessions"
+    pageTitle = "Welcome back"
+
+
+    pageSubtitle = "Log in to search and book studio sessions"
 
     formInput = [
         {
@@ -44,15 +47,19 @@ export default class LoginClient extends AbstractView {
 
 
 
-    static async loginUser(params: { username: string, password: string, accessType: "USER" | "MERCHANT" }) {
+    static async loginUser(params: Record<string, string>) {
+
         try {
-            const request = await fetch('https://stoplight.io/mocks/pipeline/pipelinev2-projects/111233856/sign-in', {
-                method: "POST",
-                body: JSON.stringify({
-                    ...params,
-                    accessType: "USER"
-                })
-            })
+            const request = await fetch(`${API_URL}/sign-in`,
+                {
+                    method: "POST",
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        ...params,
+                        accessType: "USER"
+                    })
+                }
+            )
             const response = await request.json()
             console.log({ response })
         } catch (error) {
@@ -65,18 +72,19 @@ export default class LoginClient extends AbstractView {
 }
 
 document.body.addEventListener('submit', e => {
-    if (e) {
+    let formId = "login-client"
+    if (e && (e.target as HTMLFormElement).id === formId) {
         e.preventDefault();
         // actual logic, e.g. validate the form
-        var formEl = document.forms.Login;
+        var formEl = document.forms[formId];
 
         var formData = new FormData(formEl);
 
-        var username = formData.get('username') as string;
-        var password = formData.get('password') as string;
-        LoginClient.loginUser({ username, password, accessType: 'USER' })
-        // let test = new Login({})
-        // console.log(Login.clickActionButton())
-
+        let data: Record<string, string> = {}
+        for (const pair of formData.entries()) {
+            console.log(`${pair[0]}, ${pair[1]}`);
+            data[pair[0]] = pair[1] as string
+        }
+        LoginClient.loginUser(data as Record<string, string>)
     }
 });

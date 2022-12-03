@@ -1,6 +1,7 @@
 import AbstractView from '../AbstractView';
 import LoginClient from './login-client';
 import photographer from '../../assets/photographer.jpeg'
+import { API_URL } from '../../../config';
 
 
 export default class LoginMerchant extends LoginClient {
@@ -11,12 +12,14 @@ export default class LoginMerchant extends LoginClient {
         super(params);
         this.setTitle('Login');
     }
-    formID = 'Login'
+    formID = 'login-merchant'
     userType = "Merchant"
 
     heroPhotograph = photographer
-    loginSubtitle = "manage studio sessions"
+    pageSubtitle = "Log in to manage studio sessions"
+    pageTitle = "Welcome back"
 
+    linkToLoginOrRegisterLink = `/register/merchant`
 
     formInput = [
         {
@@ -47,13 +50,17 @@ export default class LoginMerchant extends LoginClient {
         return undefined
     }
 
-    static async loginUser(params: { username: string, password: string, accessType: "USER" | "MERCHANT" }) {
+    static async loginMerchant(params: { username: string, password: string }) {
         try {
-            const request = await fetch('https://stoplight.io/mocks/pipeline/pipelinev2-projects/111233856/sign-in', {
+            const request = await fetch(`${API_URL}/sign-in`, {
                 method: "POST",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
                 body: JSON.stringify({
                     ...params,
-                    accessType: "USER"
+                    accessType: "MERCHANT"
                 })
             })
             const response = await request.json()
@@ -68,16 +75,17 @@ export default class LoginMerchant extends LoginClient {
 }
 
 document.body.addEventListener('submit', e => {
-    if (e) {
+    let formId = 'login-merchant'
+    if (e && (e.target as HTMLFormElement).id === formId) {
         e.preventDefault();
         // actual logic, e.g. validate the form
-        var formEl = document.forms.Login;
+        var formEl = document.forms[formId];
 
         var formData = new FormData(formEl);
 
         var username = formData.get('username') as string;
         var password = formData.get('password') as string;
-        Login.loginUser({ username, password, accessType: 'USER' })
+        LoginMerchant.loginUser({ username, password })
         // let test = new Login({})
         // console.log(Login.clickActionButton())
 
