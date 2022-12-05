@@ -47,16 +47,21 @@ export default class AbstractView {
                       `
     }).join('')
   }
+
+  pageNavbar() {
+    return `
+    <div class="h-16 border-primary border-b flex items-center justify-center">
+                <div class="h-16 flex items-center justify-center">
+                    <a href="/" class="text-2xl text-black pr-2 ">CutScene</a>
+                    ${this.userType ? `<p class="h-4 bg-gray-300 w-px "></p>
+                    <p class="text-base text-custom-gray-400 pl-2 ">${this.userType}</p>` : ""}
+                </div>
+            </div>`
+  }
   async getHtml() {
     return `
         <div class="h-screen w-screen overflow-x-hidden">
-            <div class="h-16 border-primary border-b flex items-center justify-center">
-                <div class="h-16 flex items-center justify-center">
-                    <a href="/" class="text-2xl text-black pr-2 ">CutScene</a>
-                    <p class="h-4 bg-gray-300 w-px "></p>
-                    <p class="text-base text-custom-gray-400 pl-2 ">${this.userType}</p>
-                </div>
-            </div>
+            ${this.pageNavbar()}
             <div class="flex h-[calc(100vh-64px)]">
                 <div class="flex-1 flex justify-center items-center overflow-auto scroll-p-5">
                     <div class="mb-5 w-full max-w-sm mt-8  mx-auto">
@@ -74,8 +79,8 @@ export default class AbstractView {
                           </form>
                     </div>
                 </div>
-                <div class="hidden sm:flex w-1/2 relative">
-                    <img alt="photographer" src="${this.heroPhotograph}" class="h-full w-full object-cover" />
+                <div class="hidden sm:flex w-1/2 relative bg-custom-gray-500">
+                    <img alt="photographer" src="${this.heroPhotograph}" class="h-full w-full object-cover" type="image/webp"/>
                     <p class="absolute bottom-2 right-2  bg-white p-0.5 text-xs rounded">
                     ${this.attributtion()}
   </p>

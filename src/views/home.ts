@@ -8,14 +8,25 @@ export default class extends AbstractView {
 
   async getHtml() {
     return `
+    ${this.pageNavbar()}
         <h1>Home</h1>
         <p>
           Welcome to CutScene
         </p>
         <p>
             <a href="/login/client" data-link>Login Client</a>
-        </p> <p>
+        </p>
+        <p>
              <a href="/login/merchant" data-link>Login Merchant</a>
+        </p>
+        <p>
+            <a href="/register/client" data-link>Register Client</a>
+        </p>
+        <p>
+             <a href="/register/merchant" data-link>Register Merchant</a>
+        </p>
+        <p>
+             <a href="/merchants" data-link>View all Merchants</a>
         </p>
 
         <br>

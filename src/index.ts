@@ -4,6 +4,7 @@ import RegisterClient from './views/authentication/register-client';
 import RegisterMerchant from './views/authentication/register-merchant';
 import ErrorPage from './views/error';
 import Home from './views/home';
+import Merchants from './views/merchants';
 
 
 type TMatch = {
@@ -44,6 +45,7 @@ const navigateTo = (url: string) => {
 const router = async () => {
     const routes = [
         { path: '/', view: Home },
+        { path: '/merchants', view: Merchants },
         { path: '/login/client', view: LoginClient },
         { path: '/login/merchant', view: LoginMerchant },
         { path: '/register/client', view: RegisterClient },
@@ -77,18 +79,25 @@ const router = async () => {
 };
 
 window.addEventListener('popstate', router);
+let url = location.href;
 
 document.addEventListener('DOMContentLoaded', () => {
     document.body.addEventListener('click', e => {
-        let dataLink = (e.target as HTMLAnchorElement).matches('[data-link]')
-        let link = (e.target as HTMLAnchorElement).href
-        if (dataLink && link) {
-            e.preventDefault();
-            navigateTo(link);
-        }
+        requestAnimationFrame(() => {
+            if (url !== location.href) {
+                console.log('url changed');
+                url = location.href
+            }
+            let dataLink = (e.target as HTMLAnchorElement).matches('[data-link]')
+            let link = (e.target as HTMLAnchorElement).href
+            if (dataLink && link) {
+                e.preventDefault();
+                navigateTo(link);
+            }
+        });
     });
 
 
 
     router();
-});
+}, true);

@@ -2,6 +2,7 @@ import AbstractView from '../AbstractView';
 import model from '../../assets/prewedding.jpeg'
 import { API_URL } from '../../../config';
 import { stringify } from 'postcss';
+import axios from 'axios';
 
 export default class LoginClient extends AbstractView {
     postID: string
@@ -48,27 +49,20 @@ export default class LoginClient extends AbstractView {
 
 
     static async loginUser(params: Record<string, string>) {
+        const options = {
+            method: 'POST',
+            url: `${API_URL}/sign-in`,
+            headers: { 'Content-Type': 'application/json', Prefer: 'code=200, dynamic=true' },
+            data: { ...params, accessType: "USER" },
+        };
 
         try {
-            const request = await fetch(`${API_URL}/sign-in`,
-                {
-                    method: "POST",
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        ...params,
-                        accessType: "USER"
-                    })
-                }
-            )
-            const response = await request.json()
-            console.log({ response })
+            const response = await axios.request(options)
+            console.log(response);
         } catch (error) {
-            console.log("error", error.message)
+            console.error(error);
         }
     }
-
-
-
 }
 
 document.body.addEventListener('submit', e => {
