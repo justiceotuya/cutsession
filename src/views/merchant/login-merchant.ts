@@ -1,7 +1,8 @@
 import AbstractView from '../AbstractView';
-import LoginClient from './login-client';
+import LoginClient from '../client/login-client';
 import photographer from '../../assets/photographer.jpeg'
 import { API_URL } from '../../../config';
+import axios from '../../lib';
 
 
 export default class LoginMerchant extends LoginClient {
@@ -50,21 +51,25 @@ export default class LoginMerchant extends LoginClient {
         return undefined
     }
 
-    static async loginMerchant(params: { username: string, password: string }) {
+    static async login(params: { username: string, password: string }) {
+        const options = {
+            method: 'POST',
+            url: `${API_URL}/sign-in`,
+            data: { ...params, accessType: "MERCHANT" },
+        };
+
         try {
-            const request = await fetch(`${API_URL}/sign-in`, {
-                method: "POST",
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    ...params,
-                    accessType: "MERCHANT"
-                })
-            })
-            const response = await request.json()
-            console.log({ response })
+            const request = await axios.request(options)
+            if (request.status === 200) {
+                let merchantId = 'c3073b9d-edd0-49f2-a28d-b7ded8ff9a8b'
+                localStorage.setItem("data", JSON.stringify({
+                    ...request.data,
+                    merchantId,
+                    type: "MERCHANT"
+                }))
+                // window.location.href = `/merchant/${merchantId}`
+                window.location.href = `/merchant`
+            }
         } catch (error) {
             console.log("error", error.message)
         }
@@ -85,7 +90,7 @@ document.body.addEventListener('submit', e => {
 
         var username = formData.get('username') as string;
         var password = formData.get('password') as string;
-        LoginMerchant.loginUser({ username, password })
+        LoginMerchant.login({ username, password })
         // let test = new Login({})
         // console.log(Login.clickActionButton())
 

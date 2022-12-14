@@ -2,7 +2,7 @@ import AbstractView from '../AbstractView';
 import photographer from '../../assets/photographer.jpeg'
 import { API_URL } from '../../../config';
 import { TRegisterMerchant } from '../../../types';
-
+import axios from '../../lib'
 export default class RegisterMerchant extends AbstractView {
     postID: string
     error: string
@@ -83,20 +83,24 @@ export default class RegisterMerchant extends AbstractView {
 
 
 
-    static async registerUser(params: Record<string, string>) {
+    static async register(params: Record<string, string>) {
         try {
-            const request = await fetch(`${API_URL}/register/users`, {
+            const request = await axios.request({
+                url: `${API_URL}/register/merchants`,
                 method: "POST",
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({
-                    ...params,
-                })
+                data: {
+                    ...params
+                }
             })
-            const response = await request.json()
-            console.log({ response })
+            if (request.status === 200) {
+                alert("done")
+                console.log("data", request.data)
+                window.location.href = "/login/merchant"
+            }
         } catch (error) {
             console.log("error", error.message)
         }
@@ -121,7 +125,7 @@ document.body.addEventListener('submit', e => {
             data[pair[0]] = pair[1] as string
         }
 
-        RegisterMerchant.registerUser(data as Record<string, string>)
+        RegisterMerchant.register(data as Record<string, string>)
 
     }
 });

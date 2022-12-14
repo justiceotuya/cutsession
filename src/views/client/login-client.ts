@@ -2,7 +2,7 @@ import AbstractView from '../AbstractView';
 import model from '../../assets/prewedding.jpeg'
 import { API_URL } from '../../../config';
 import { stringify } from 'postcss';
-import axios from 'axios';
+import axios from '../../lib';
 
 export default class LoginClient extends AbstractView {
     postID: string
@@ -52,13 +52,21 @@ export default class LoginClient extends AbstractView {
         const options = {
             method: 'POST',
             url: `${API_URL}/sign-in`,
-            headers: { 'Content-Type': 'application/json', Prefer: 'code=200, dynamic=true' },
             data: { ...params, accessType: "USER" },
         };
 
         try {
-            const response = await axios.request(options)
-            console.log(response);
+            const request = await axios.request(options)
+            if (request.status === 200) {
+                let merchantId = 'c3073b9d-edd0-49f2-a28d-b7ded8ff9a8b'
+                localStorage.setItem("data", JSON.stringify({
+                    ...request.data,
+                    // merchantId,
+                    type: "CLIENT"
+                }))
+                // window.location.href = `/merchant/${merchantId}`
+                window.location.href = `/merchants`
+            }
         } catch (error) {
             console.error(error);
         }

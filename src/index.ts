@@ -1,10 +1,11 @@
-import LoginClient from './views/authentication/login-client';
-import LoginMerchant from './views/authentication/login-merchant';
-import RegisterClient from './views/authentication/register-client';
-import RegisterMerchant from './views/authentication/register-merchant';
+import LoginClient from './views/client/login-client';
+import LoginMerchant from './views/merchant/login-merchant';
+import RegisterClient from './views/client/register-client';
+import RegisterMerchant from './views/merchant/register-merchant';
 import ErrorPage from './views/error';
 import Home from './views/home';
-import Merchants from './views/merchants';
+import Merchant from './views/merchant/dashboard';
+import MerchantList from './views/client/dashboard';
 
 
 type TMatch = {
@@ -45,11 +46,15 @@ const navigateTo = (url: string) => {
 const router = async () => {
     const routes = [
         { path: '/', view: Home },
-        { path: '/merchants', view: Merchants },
+        { path: '/merchants', view: MerchantList },
         { path: '/login/client', view: LoginClient },
         { path: '/login/merchant', view: LoginMerchant },
         { path: '/register/client', view: RegisterClient },
         { path: '/register/merchant', view: RegisterMerchant },
+        { path: '/merchant/:id', view: Merchant },
+        { path: '/merchant', view: Merchant },
+        // { path: '/booking/:id', view: Merchant },
+        // { path: '/create-merchant', view: Merchant },
     ];
 
     // Test each route for a potential match.
