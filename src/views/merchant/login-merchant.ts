@@ -29,7 +29,10 @@ export default class LoginMerchant extends LoginClient {
             type: 'text',
             name: "username",
             id: "username",
-            placeholder: "anwuli@"
+            placeholder: "anwuli@",
+            minLength: "6",
+            maxLength: "20",
+            required: true
         },
         {
             labelFor: "password",
@@ -37,7 +40,9 @@ export default class LoginMerchant extends LoginClient {
             type: 'password',
             name: "password",
             id: "password",
-            placeholder: "Type your password"
+            placeholder: "Type your password",
+            minLength: "6",
+            required: true
         }
     ]
 

@@ -2,7 +2,7 @@ import AbstractView from '../AbstractView';
 import model from '../../assets/prewedding.jpeg'
 import { API_URL } from '../../../config';
 import { TRegisterUser } from '../../../types';
-
+import axios from '../../lib';
 
 export default class RegisterClient extends AbstractView {
     postID: string
@@ -31,14 +31,17 @@ export default class RegisterClient extends AbstractView {
     linkToLoginOrRegisterLink = `/login/client`
     linkToLoginOrRegisterlinkText = "Log in"
 
-    formInput = [
+    formInput: Record<string, any>[] = [
         {
             labelFor: "name",
             label: "Name",
             type: 'text',
             name: "name",
             id: "name",
-            placeholder: "anwuli"
+            placeholder: "anwuli",
+            minLength: "2",
+            maxLength: "24",
+            required: true
         },
         {
             labelFor: "email",
@@ -46,7 +49,9 @@ export default class RegisterClient extends AbstractView {
             type: 'email',
             name: "email",
             id: "email",
-            placeholder: "eg anwuli@"
+            placeholder: "eg anwuli@",
+            maxLength: "50",
+            required: true
         },
         {
             labelFor: "username",
@@ -54,7 +59,10 @@ export default class RegisterClient extends AbstractView {
             type: 'text',
             name: "username",
             id: "username",
-            placeholder: "anwuli"
+            placeholder: "anwuli",
+            minLength: "6",
+            maxLength: "20",
+            required: true
         },
         {
             labelFor: "phoneNumber",
@@ -62,23 +70,28 @@ export default class RegisterClient extends AbstractView {
             type: 'text',
             name: "phoneNumber",
             id: "phoneNumber",
-            placeholder: "08123456789"
+            placeholder: "08123456789",
+            maxLength: "20",
+            required: true
         },
         {
-            labelFor: "cityOfOperation",
-            label: "City Of Operation",
+            labelFor: "cityOfResidence",
+            label: "City Of Residence",
             type: 'text',
-            name: "cityOfOperation",
-            id: "cityOfOperation",
-            placeholder: "Abuja"
+            name: "cityOfResidence",
+            id: "cityOfResidence",
+            placeholder: "Abuja",
+            maxLength: "20",
+            required: true
         },
         {
-            labelFor: "dateOfBirth",
+            labelFor: "dob",
             label: "Date of birth",
             type: 'date',
-            name: "dateOfBirth",
-            id: "dateOfBirth",
-            placeholder: "dateOfBirth"
+            name: "dob",
+            id: "dob",
+            placeholder: "dateOfBirth",
+            required: true
         },
         {
             labelFor: "password",
@@ -86,7 +99,9 @@ export default class RegisterClient extends AbstractView {
             type: 'password',
             name: "password",
             id: "password",
-            placeholder: "Type your password"
+            placeholder: "Type your password",
+            minLength: "6",
+            required: true
         }
     ]
 
@@ -101,19 +116,21 @@ export default class RegisterClient extends AbstractView {
 
 
     static async registerUser(params: Record<string, string>) {
+
+        const options = {
+            method: 'POST',
+            url: `${API_URL}/register/users`,
+            headers: { 'Content-Type': 'application/json' },
+            data: {
+                ...params,
+                // metadata: {}
+            }
+        };
         try {
-            const request = await fetch(`${API_URL}/register/users`, {
-                method: "POST",
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    ...params,
-                })
-            })
-            const response = await request.json()
-            console.log({ response })
+            const request = await axios.request(options)
+            if (request.status === 200) {
+                window.location.href = `/login/client`
+            }
         } catch (error) {
             console.log("error", error.message)
         }

@@ -17,6 +17,14 @@ export default class MerchantList extends AbstractView {
     this.setTitle('Merchants');
   }
 
+  navItems = [{
+    link: "/bookings",
+    text: "Bookings"
+  }, {
+    link: "/merchants",
+    text: "Merchants"
+  },
+  ]
   static async fetchMerchant() {
     const options = {
       method: 'GET',

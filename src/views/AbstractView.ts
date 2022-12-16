@@ -30,17 +30,46 @@ export default class AbstractView {
   linkToLoginOrRegister() {
     return `<p class="text-sm text-custom-gray-400 text-center">${this.linkToLoginOrRegisterText ?? ""}<a class="text-black underline " href="${this.linkToLoginOrRegisterLink ?? ""}"> ${this.linkToLoginOrRegisterlinkText ?? ""}</a></p>`
   }
+  renderInput({ type, name, id, placeholder, minLength, maxLength, required }: {
+    type: string, name: string, id: string, placeholder: string, minLength: string, maxLength: string, required: string
+  }) {
+    return `   <input type="${type}" name="${name}" id="${id}" placeholder="${placeholder}"  minLength="${minLength}" maxLength="${maxLength}" class="bg-white rounded border border-primary h-45px px-2 py-3 w-full placeholder:text-sm placeholder:text-custom-gray-500" ${required ? "required" : ""}/>`
+  }
+  renderTextArea({ type, name, id, placeholder, minLength, maxLength, required }: {
+    type: string, name: string, id: string, placeholder: string, minLength: string, maxLength: string, required: string
+  }) {
+    return `<textarea type="${type}" name="${name}" id="${id}" placeholder="${placeholder}" minLength="${minLength}" maxLength="${maxLength}" class="bg-white rounded border border-primary h-full px-2 py-3 w-full placeholder:text-sm placeholder:text-custom-gray-500 " ${required ? "required" : ""} ></textarea>`
+  }
 
+  renderSelect({ type, name, id, placeholder, options, required }: {
+    type: string, name: string, id: string, placeholder: string, options: string[]
+    , required: string
+  }) {
+    return `<select type="${type}" name="${name}" id="${id}" placeholder="${placeholder}" class="bg-white rounded border border-primary h-45px px-2 py-3 w-full placeholder:text-sm placeholder:text-custom-gray-500" ${required ? "required" : ""} >
+      ${options.map(item => ` <option value="${item}">${item}</option>`)}
+    </select>`
+  }
+
+  renderInputFeilds(args) {
+    const { inputType, ...others } = args
+    if (inputType === "textarea") {
+      return this.renderTextArea(others)
+    }
+    if (inputType === "select") {
+      return this.renderSelect(others)
+    }
+    return this.renderInput(others)
+  }
 
   getInput() {
     return this.formInput.map(item => {
-      const { type, placeholder, name, label, labelFor, id } = item
+      const { type, placeholder, name, label, labelFor, id, inputType } = item
+      const customInput = inputType === "textarea" ? "textarea" : "input"
       return `
-                    <div class="flex flex-col mb-4">
+                    <div class="flex flex-col mb-2">
                         <label for="${labelFor}" class="text-sm mb-2">${label}</label>
                         <div class="w-full relative">
-                        <input type="${type}" name="${name}" id="${id}" placeholder="${placeholder}"
-                            class="bg-white rounded border border-primary h-full px-2 py-3 w-full placeholder:text-sm placeholder:text-custom-gray-500" required/>
+                          ${this.renderInputFeilds(item)}
                            ${type === "password" ? `<button type="button" class="border absolute right-3 top-3 ">toggle</button>` : ''}
                             </div>
                     </div>
@@ -48,14 +77,27 @@ export default class AbstractView {
     }).join('')
   }
 
+  navItems: {
+    link: string;
+    text: string;
+  }[] = []
   pageNavbar() {
     return `
-    <div class="h-16 border-primary border-b flex items-center justify-center">
+    <div class="h-16 border-primary border-b flex items-center justify-between px-12 gap-2 flex-wrap">
                 <div class="h-16 flex items-center justify-center">
                     <a href="/" class="text-2xl text-black pr-2 ">CutScene</a>
                     ${this.userType ? `<p class="h-4 bg-gray-300 w-px "></p>
                     <p class="text-base text-custom-gray-400 pl-2 ">${this.userType}</p>` : ""}
                 </div>
+                ${this.navItems.length ? `<div class="h-16 flex gap-3 items-center justify-center">
+                ${this.navItems.map(item => {
+      const { link, text } = item;
+
+      return ` <a href="${link}" class=" text-black pr-2 hover:underline">${text}</a>`
+    }).join('')}
+     <button  class=" text-black pr-2 hover:underline">Logout</button>
+                 </div>`: `<div class="hidden"></div>
+    `}
             </div>`
   }
   async getHtml() {

@@ -6,6 +6,9 @@ import ErrorPage from './views/error';
 import Home from './views/home';
 import Merchant from './views/merchant/dashboard';
 import MerchantList from './views/client/dashboard';
+import BookingPage from './views/client/booking';
+import BookedSession from './views/client/booked-sessions';
+import CreateSession from './views/merchant/create-session';
 
 
 type TMatch = {
@@ -53,8 +56,9 @@ const router = async () => {
         { path: '/register/merchant', view: RegisterMerchant },
         { path: '/merchant/:id', view: Merchant },
         { path: '/merchant', view: Merchant },
-        // { path: '/booking/:id', view: Merchant },
-        // { path: '/create-merchant', view: Merchant },
+        { path: '/booking/:id', view: BookingPage },
+        { path: '/bookings', view: BookedSession },
+        { path: '/create-session', view: CreateSession },
     ];
 
     // Test each route for a potential match.

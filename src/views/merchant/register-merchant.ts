@@ -26,14 +26,17 @@ export default class RegisterMerchant extends AbstractView {
     linkToLoginOrRegisterLink = `/login/merchant`
     linkToLoginOrRegisterlinkText = "Log in"
 
-    formInput = [
+    formInput: Record<string, any>[] = [
         {
             labelFor: "name",
             label: "Name",
             type: 'text',
             name: "name",
             id: "name",
-            placeholder: "anwuli"
+            placeholder: "anwuli",
+            minLength: "2",
+            maxLength: "25",
+            required: true
         },
         {
             labelFor: "email",
@@ -41,7 +44,9 @@ export default class RegisterMerchant extends AbstractView {
             type: 'email',
             name: "email",
             id: "email",
-            placeholder: "eg anwuli@"
+            placeholder: "eg anwuli@",
+            maxLength: "50",
+            required: true
         },
         {
             labelFor: "username",
@@ -49,7 +54,10 @@ export default class RegisterMerchant extends AbstractView {
             type: 'text',
             name: "username",
             id: "username",
-            placeholder: "anwuli"
+            placeholder: "anwuli",
+            minLength: "6",
+            maxLength: "20",
+            required: true
         },
         {
             labelFor: "phoneNumber",
@@ -57,7 +65,9 @@ export default class RegisterMerchant extends AbstractView {
             type: 'text',
             name: "phoneNumber",
             id: "phoneNumber",
-            placeholder: "08123456789"
+            placeholder: "08123456789",
+            maxLength: "20",
+            required: true
         },
         {
             labelFor: "cityOfOperation",
@@ -65,7 +75,9 @@ export default class RegisterMerchant extends AbstractView {
             type: 'text',
             name: "cityOfOperation",
             id: "cityOfOperation",
-            placeholder: "Abuja"
+            placeholder: "Abuja",
+            maxLength: "20",
+            required: true
         },
         {
             labelFor: "password",
@@ -73,7 +85,9 @@ export default class RegisterMerchant extends AbstractView {
             type: 'password',
             name: "password",
             id: "password",
-            placeholder: "Type your password"
+            placeholder: "Type your password",
+            minLength: "6",
+            required: true
         }
     ]
 
@@ -97,8 +111,6 @@ export default class RegisterMerchant extends AbstractView {
                 }
             })
             if (request.status === 200) {
-                alert("done")
-                console.log("data", request.data)
                 window.location.href = "/login/merchant"
             }
         } catch (error) {

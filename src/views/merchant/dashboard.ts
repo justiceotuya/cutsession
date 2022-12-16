@@ -65,6 +65,7 @@ export default class Merchant extends AbstractView {
   }
 
 
+
   static getMerchantHtml(item: TMerchantSession) {
     const { endsAt,
       id,
@@ -93,9 +94,11 @@ export default class Merchant extends AbstractView {
        ${this.pageNavbar()}
        <div class=" flex gap-8 flex-wrap bg-custom-gray-800 min-h-screen" >
        <div class="max-w-5xl w-11/12 md:w-full h-full mt-16 bg-white  rounded-t-xl  m-auto shadow-so2 pb-8 overflow-hidden" >
-         ${Merchant.isMerchant() ? `  <div class="w-full bg-custom-gold px-8 py-3">
-       <a href="/create-session" class="bg-black text-white px-6 py-1 font-medium rounded-xl"> Create session </a>
-       </div>` : ""}
+
+       <div class="w-full bg-custom-gold px-8 py-3 flex justify-between">
+       <p class=" text-black px-6 py-1 font-medium rounded-xl text-xl"> Studio sessions </p>
+  ${Merchant.isMerchant() ? `<a href= "/create-session" class="bg-black text-white px-6 py-1 font-medium rounded-xl"> Create session </a>` : ""}
+       </div>
        <div id="merchantData" class="max-w-2xl w-full m-auto mt-8 h-full">
        Loading Sessions ...
        </div>
@@ -108,8 +111,11 @@ export default class Merchant extends AbstractView {
 
 
 window.addEventListener('DOMContentLoaded', async () => {
-  console.log("changes")
-  if (window.location.pathname.startsWith("/merchant")) {
+  if (window.location.pathname.startsWith("/merchant/") || window.location.pathname === ("/merchant")) {
+    if (window.location.pathname.startsWith("/merchant/")) {
+      let currentMerchant = window.location.pathname.split("/merchant/")[1]
+      localStorage.setItem("currentMerchant", currentMerchant)
+    }
     let data: TMerchantSession[] = await Merchant.FetchStudioSessions()
     let merchantHTMLData = data.map(item => {
       return Merchant.getMerchantHtml(item)

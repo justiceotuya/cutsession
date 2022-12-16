@@ -23,14 +23,17 @@ export default class LoginClient extends AbstractView {
 
     pageSubtitle = "Log in to search and book studio sessions"
 
-    formInput = [
+    formInput: Record<string, any>[] = [
         {
             labelFor: "username",
             label: "Username",
             type: 'text',
             name: "username",
             id: "username",
-            placeholder: "anwuli@"
+            placeholder: "anwuli@",
+            minLength: "6",
+            maxLength: "20",
+            required: true
         },
         {
             labelFor: "password",
@@ -38,7 +41,8 @@ export default class LoginClient extends AbstractView {
             type: 'password',
             name: "password",
             id: "password",
-            placeholder: "Type your password"
+            placeholder: "Type your password",
+            minLength: "6", required: true
         }
     ]
 
@@ -61,10 +65,8 @@ export default class LoginClient extends AbstractView {
                 let merchantId = 'c3073b9d-edd0-49f2-a28d-b7ded8ff9a8b'
                 localStorage.setItem("data", JSON.stringify({
                     ...request.data,
-                    // merchantId,
                     type: "CLIENT"
                 }))
-                // window.location.href = `/merchant/${merchantId}`
                 window.location.href = `/merchants`
             }
         } catch (error) {

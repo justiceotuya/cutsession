@@ -1,2 +1,2 @@
 import MerchantList from '../client/dashboard'
-export default { MerchantList, LoginMerchant }
+export default { MerchantList }

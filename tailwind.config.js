@@ -27,6 +27,9 @@ module.exports = {
       boxShadow: {
         s01: "0px 2px 4px -2px rgba(68, 60, 77, 0.12), 0px 4px 4px -2px rgba(68, 60, 77, 0.08)",
         so2: '0px 8px 16px -6px rgba(10, 31, 68, 0.08)'
+      },
+      height: {
+        "45px":"45px"
       }
     },
   },
