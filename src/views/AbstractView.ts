@@ -1,7 +1,6 @@
 export default class AbstractView {
   params: any
   formInput: Record<string, string>[]
-  userType: string
 
   pageSubtitle: string
 
@@ -27,6 +26,14 @@ export default class AbstractView {
   linkToLoginOrRegisterLink = `/register/client`
   linkToLoginOrRegisterlinkText = "Get started"
 
+  userType = this.getUserType()?.toLowerCase()
+
+  getUserType() {
+    let userData = localStorage.getItem('data')
+    if (userData) {
+      return JSON.parse(userData).type;
+    }
+  }
   linkToLoginOrRegister() {
     return `<p class="text-sm text-custom-gray-400 text-center">${this.linkToLoginOrRegisterText ?? ""}<a class="text-black underline " href="${this.linkToLoginOrRegisterLink ?? ""}"> ${this.linkToLoginOrRegisterlinkText ?? ""}</a></p>`
   }
@@ -66,7 +73,7 @@ export default class AbstractView {
       const { type, placeholder, name, label, labelFor, id, inputType } = item
       const customInput = inputType === "textarea" ? "textarea" : "input"
       return `
-                    <div class="flex flex-col mb-2">
+                    <div class="flex flex-col mb-2" id="container-${id}">
                         <label for="${labelFor}" class="text-sm mb-2">${label}</label>
                         <div class="w-full relative">
                           ${this.renderInputFeilds(item)}
@@ -87,7 +94,7 @@ export default class AbstractView {
                 <div class="h-16 flex items-center justify-center">
                     <a href="/" class="text-2xl text-black pr-2 ">CutScene</a>
                     ${this.userType ? `<p class="h-4 bg-gray-300 w-px "></p>
-                    <p class="text-base text-custom-gray-400 pl-2 ">${this.userType}</p>` : ""}
+                    <p class="text-base text-custom-gray-400 pl-2 first-letter:uppercase">${this.userType}</p>` : ""}
                 </div>
                 ${this.navItems.length ? `<div class="h-16 flex gap-3 items-center justify-center">
                 ${this.navItems.map(item => {
@@ -95,7 +102,7 @@ export default class AbstractView {
 
       return ` <a href="${link}" class=" text-black pr-2 hover:underline">${text}</a>`
     }).join('')}
-     <button  class=" text-black pr-2 hover:underline">Logout</button>
+     <button  class=" text-black pr-2 hover:underline" id="logout">Logout</button>
                  </div>`: `<div class="hidden"></div>
     `}
             </div>`
@@ -105,8 +112,8 @@ export default class AbstractView {
         <div class="h-screen w-screen overflow-x-hidden">
             ${this.pageNavbar()}
             <div class="flex h-[calc(100vh-64px)]">
-                <div class="flex-1 flex justify-center items-center overflow-auto scroll-p-5">
-                    <div class="mb-5 w-full max-w-sm mt-8  mx-auto">
+                <div class="flex-1 flex justify-center md:items-center overflow-auto scroll-p-5">
+                    <div class="mb-5 w-full max-w-sm mt-8  mx-auto px-2 md:px-0">
                         <div class="mb-6">
                             <h1 class="font-semibold text-2xl mb-0.5 ">${this.pageTitle}</h1>
                             <p class="text-base text-custom-gray-400">${this.pageSubtitle}</p>
@@ -132,3 +139,33 @@ export default class AbstractView {
     `;
   }
 }
+
+
+window.addEventListener('click', async (e) => {
+  let formId = 'logout'
+  if (e && (e.target as HTMLButtonElement).id === formId) {
+    e.preventDefault();
+    localStorage.removeItem('data')
+    localStorage.removeItem("currentMerchant")
+    window.location.href = "/"
+    // actual logic, e.g. validate the form
+    // var formEl = document.forms[formId];
+
+    // var formData = new FormData(formEl);
+
+    // let data: Record<string, string> = {}
+    // for (const pair of formData.entries()) {
+    //   data[pair[0]] = pair[1] as string
+    // }
+
+    // let userData = localStorage.getItem('data')
+    // if (userData) {
+    //   let userType = JSON.parse(userData).type;
+    //   if (userType === "MERCHANT") {
+    //     data["merchantId"] = JSON.parse(userData).merchantId
+    //   }
+    // }
+
+
+  }
+});

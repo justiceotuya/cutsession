@@ -23,6 +23,14 @@ export default class Merchant extends AbstractView {
     this.setTitle('Merchant');
   }
 
+  navItems = [{
+    link: "/bookings",
+    text: "Bookings"
+  }, {
+    link: this.getUserType() === "MERCHANT" ? "/merchant" : "/merchants",
+    text: this.getUserType() === "MERCHANT" ? "Session" : "Merchants"
+  },
+  ]
   static async FetchStudioSessions() {
     let merchantIdFromURL;
 

@@ -29,6 +29,17 @@ export default class BookedSession extends AbstractView {
         this.setTitle('Merchant');
     }
 
+
+
+    navItems = [{
+        link: "/bookings",
+        text: "Bookings"
+    }, {
+        link: this.getUserType() === "MERCHANT" ? "/merchant" : "/merchants",
+        text: this.getUserType() === "MERCHANT" ? "Session" : "Merchants"
+    },
+    ]
+
     static async FetchBookedSessions(params: Record<string, string>) {
         // let newParams = params.filter(item)
         Object.keys(params).forEach((k) => (params[k] == null || params[k] == "") && delete params[k]);
@@ -76,7 +87,7 @@ export default class BookedSession extends AbstractView {
 
         return `
               <div
-        class="bg-custom-gold-light flex-grow  border border-secondary rounded-lg overflow-hidden w-full px-7 py-3 mb-4 relative before:absolute before:bg-custom-gold before:h-4/5 before:w-1 before:rounded-lg before:top-2 before:left-3 flex items-center justify-between gap-3">
+        class="bg-custom-gold-light flex-grow  border border-secondary rounded-lg overflow-hidden w-full px-7 py-3 mb-4 relative before:absolute before:bg-custom-gold before:h-4/5 before:w-1 before:rounded-lg before:top-2 before:left-3 flex items-start sm:items-center justify-between gap-3 flex-col sm:flex-row">
         <div>
             <p class="font-medium text-gray-text-200 mb-0.5">
                 ${title}
@@ -161,7 +172,6 @@ export default class BookedSession extends AbstractView {
                      <button class=" rounded-3xl bg-black py-2.5 px-5 text-sm mb-6 text-white" type="submit">Search Bookings</button>
                 </form>
                 <div id="merchantData" class="max-w-2xl w-full m-auto mt-8 h-full">
-                    Loading Sessions ...
                 </div>
             </div>
         </div>
@@ -185,6 +195,14 @@ window.addEventListener('submit', async (e) => {
             data[pair[0]] = pair[1] as string
         }
 
+        let userData = localStorage.getItem('data')
+        if (userData) {
+            let userType = JSON.parse(userData).type;
+            if (userType === "MERCHANT") {
+                data["merchantId"] = JSON.parse(userData).merchantId
+            }
+        }
+
         let result: { data: TMerchantSession[] } = await BookedSession.FetchBookedSessions(data as Record<string, string>)
         let merchantHTMLData = result.data.map(item => {
             return BookedSession.getMerchantHtml(item)
@@ -195,6 +213,37 @@ window.addEventListener('submit', async (e) => {
             merchantDom.innerHTML = merchantHTMLData
         }
     }
-
-
 });
+
+window.addEventListener('DOMContentLoaded', async () => {
+    if (window.location.pathname === "/bookings") {
+        let periodContainer = document.querySelector("#container-period")
+        let endsAtContainer = document.querySelector("#container-endsAt")
+        let merchantContainer = document.querySelector("#container-merchant")
+        let endsAt = document.querySelector("#endsAt")
+
+        //initially hide the session end dete picker input because the default period is single
+        endsAtContainer?.classList.add("hidden")
+        //hide the merchants input feild if the current loggedin user is merchant and use the merchant id from storage to make all requests
+        let userData = localStorage.getItem('data')
+        if (userData) {
+            let userType = JSON.parse(userData).type
+            userType === "MERCHANT" && merchantContainer?.classList.add("hidden")
+        }
+
+        periodContainer?.addEventListener("change", (e) => {
+            let value = (e.target as HTMLSelectElement).value
+
+
+            if (value === "Single") {
+                console.log("value", value)
+                console.log("endsAt", endsAt);
+                (endsAt as HTMLInputElement).value = ""
+                endsAtContainer?.classList.add("hidden")
+                // (endsAt.target as HTMLSelectElement).value
+            } else {
+                endsAtContainer?.classList.remove("hidden")
+            }
+        })
+    }
+})

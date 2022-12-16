@@ -15,6 +15,15 @@ export default class BookingPage extends AbstractView {
   pageSubtitle = "Book studio sessions"
   pageTitle = "Booking"
 
+  navItems = [{
+    link: "/bookings",
+    text: "Bookings"
+  }, {
+    link: "/merchants",
+    text: "Merchants"
+  },
+  ]
+
   buttonText = "Book session"
 
   linkToLoginOrRegister() {
@@ -58,8 +67,8 @@ export default class BookingPage extends AbstractView {
         <div class="h-screen w-screen overflow-x-hidden">
             ${this.pageNavbar()}
             <div class="flex h-[calc(100vh-64px)]">
-                <div class="flex-1 flex justify-center items-center overflow-auto scroll-p-5">
-                    <div class="mb-5 w-full max-w-sm mt-8  mx-auto">
+                <div class="flex-1 flex justify-center md:items-center overflow-auto scroll-p-5">
+                    <div class="mb-5 w-full max-w-sm mt-8  mx-auto px-2 md:px-0">
                         <div class="mb-6">
                             <h1 class="font-semibold text-2xl mb-0.5 ">${this.pageTitle}</h1>
                             <p class="text-base text-custom-gray-400">${this.pageSubtitle}</p>

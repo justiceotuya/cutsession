@@ -16,7 +16,6 @@ export default class MerchantList extends AbstractView {
     super(params);
     this.setTitle('Merchants');
   }
-
   navItems = [{
     link: "/bookings",
     text: "Bookings"
@@ -66,7 +65,6 @@ export default class MerchantList extends AbstractView {
 
 
 window.addEventListener('DOMContentLoaded', async () => {
-  console.log("changes")
   if (window.location.pathname === "/merchants") {
     let data: TMerchantData[] = await MerchantList.fetchMerchant()
     let merchantHTMLData = data.map(item => {
