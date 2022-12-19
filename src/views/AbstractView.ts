@@ -43,14 +43,14 @@ export default class AbstractView {
   }
   renderInput({ type, name, id, placeholder, minLength, maxLength, required, data, value, disabled }: InputType) {
     return `   <input ${data}="${name}" type="${type}" name="${name}" id="${id}" placeholder="${placeholder}"  minLength="${minLength}" maxLength="${maxLength}"
-   value="${value || ""}" class="bg-white rounded border border-primary h-45px px-2 py-3 w-full placeholder:text-sm placeholder:text-custom-gray-500" ${required ? "required" : ""} disabled="${disabled}"/>`
+   value="${value || ""}" class="bg-white rounded border border-primary h-45px px-2 py-3 w-full placeholder:text-sm placeholder:text-custom-gray-500" ${required ? "required" : ""}  ${disabled && "disabled"}/>`
   }
   renderTextArea({ type, name, id, placeholder, minLength, maxLength, required, data, value, disabled }: InputType) {
-    return `<textarea ${data}="${name}" type="${type}" name="${name}" id="${id}" placeholder="${placeholder}" minLength="${minLength}" maxLength="${maxLength}" value="${value || ""}" class="bg-white rounded border border-primary h-full px-2 py-3 w-full placeholder:text-sm placeholder:text-custom-gray-500 " ${required ? "required" : ""} disabled="${disabled}"></textarea>`
+    return `<textarea ${data}="${name}" type="${type}" name="${name}" id="${id}" placeholder="${placeholder}" minLength="${minLength}" maxLength="${maxLength}" value="${value || ""}" class="bg-white rounded border border-primary h-full px-2 py-3 w-full placeholder:text-sm placeholder:text-custom-gray-500 " ${required ? "required" : ""}  ${disabled && "disabled"}> </textarea>`
   }
 
   renderSelect({ type, name, id, placeholder, options, required, data, value, disabled }: InputType) {
-    return `<select ${data}="${name}" type="${type}" name="${name}" id="${id}" placeholder="${placeholder}" value="${value || ""}" class="bg-white rounded border border-primary h-45px px-2 py-3 w-full placeholder:text-sm placeholder:text-custom-gray-500" ${required ? "required" : ""}disabled="${disabled}" >
+    return `<select ${data}="${name}" type="${type}" name="${name}" id="${id}" placeholder="${placeholder}" value="${value || ""}" class="bg-white rounded border border-primary h-45px px-2 py-3 w-full placeholder:text-sm placeholder:text-custom-gray-500" ${required ? "required" : ""} ${disabled && "disabled"} >
       ${options.map(item => ` <option value="${item}">${item}</option>`)}
     </select>`
   }
