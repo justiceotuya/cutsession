@@ -1498,21 +1498,6 @@
     "@typescript-eslint/types" "5.44.0"
     eslint-visitor-keys "^3.3.0"
 
-"@webreflection/mapset@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@webreflection/mapset/-/mapset-1.0.1.tgz#0e292cb23724830d24a194af0a9e4c7b7985ca2a"
-  integrity sha512-cfHPwoviBs7Y/sewLQqE6Ic3XJfUr+LbNEYtR2uW4Od41y5Mg8TTQ8hUb3zBp3cepZTPpwhI6YMnjWk+olqO2w==
-
-"@webreflection/uparser@^0.2.4":
-  version "0.2.4"
-  resolved "https://registry.yarnpkg.com/@webreflection/uparser/-/uparser-0.2.4.tgz#9b57f09c14fd3425fe06a7019d4129646b0aaa5b"
-  integrity sha512-4cYSODHAbjsIlvlTLffaN+QiFcNSLTYkRLOrDqpK+m6Bzqyjudq/xHTiSl4/LxeijcQE48nJQuaBnJcnizXxrA==
-
-"@webreflection/uwire@^1.2.1":
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/@webreflection/uwire/-/uwire-1.2.1.tgz#3068ec5eb408dfb3a2fcfdb7f8ac00677b4464db"
-  integrity sha512-3FIqIFzqij5NPWKWCQKJhfcRQpfS8RHAcceFosSDDiD6WrMHRAp3QoBqYt7dfrPhJ8Fg2b6T6Ea8ttClzVkZHA==
-
 abortcontroller-polyfill@^1.1.9:
   version "1.7.5"
   resolved "https://registry.yarnpkg.com/abortcontroller-polyfill/-/abortcontroller-polyfill-1.7.5.tgz#6738495f4e901fbb57b6c0611d0c75f76c485bed"
@@ -1617,11 +1602,6 @@ array-union@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/array-union/-/array-union-2.1.0.tgz#b798420adbeb1de828d84acd8a2e23d3efe85e8d"
   integrity sha512-HGyxoOTYUyCM6stUe6EJgnd4EoewAI7zMdfqO+kGjnlZmBDz/cR5pf8r/cR4Wq60sL/p0IkcjUEEPwS3GFrIyw==
-
-async-tag@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/async-tag/-/async-tag-0.2.0.tgz#77a1cc00692fcb327b231bf07af6d80abc30a3b4"
-  integrity sha512-hNstPiQvxVVJdkBjfBsNb3zDEM2IUY3Xp7qaadEnhaGXq1/OFdS+TuwjEJxnIvZRm7e13KrPW74fIeDra7P5vw==
 
 asynckit@^0.4.0:
   version "0.4.0"
@@ -3136,11 +3116,6 @@ json5@^2.2.0, json5@^2.2.1:
   resolved "https://registry.yarnpkg.com/json5/-/json5-2.2.1.tgz#655d50ed1e6f95ad1a3caababd2b0efda10b395c"
   integrity sha512-1hqLFMSrGHRHxav9q9gNjJ5EXznIxGVO09xQRrwplcS8qs28pZ8s8hupZAmqDwZUmVZ2Qb2jnyPOWcDH8m8dlA==
 
-jsx2tag@^0.3.1:
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/jsx2tag/-/jsx2tag-0.3.1.tgz#7a970ec3f055d810162725c8b23c71741a691f76"
-  integrity sha512-S1ACW3N4yDiE49x9y9f2d+utB3Kci3A3Bx7wb2bK+5sl0B60lZM60pZ8L/A+FA55DYuAy2fgHu1i47yt+xgL9Q==
-
 kleur@^3.0.3:
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/kleur/-/kleur-3.0.3.tgz#a79c9ecc86ee1ce3fa6206d1216c501f147fc07e"
@@ -3370,13 +3345,6 @@ msgpackr@^1.5.4:
   integrity sha512-05fT4J8ZqjYlR4QcRDIhLCYKUOHXk7C/xa62GzMKj74l3up9k2QZ3LgFc6qWdsPHl91QA2WLWqWc8b8t7GLNNw==
   optionalDependencies:
     msgpackr-extract "^2.2.0"
-
-nanny-state@^7.6.0:
-  version "7.6.0"
-  resolved "https://registry.yarnpkg.com/nanny-state/-/nanny-state-7.6.0.tgz#89d5cd0cfa1887b18537ffd67b591ea54f751ca7"
-  integrity sha512-w2LCxSK1+0/4dqH5KpWcPSYnftlXqZXGgLxhXdlddTP/FQ8V1Qgl7UgPVgka6yP0otO93GeAqKkxuT8mz/453g==
-  dependencies:
-    uhtml "^3.1.0"
 
 nanoid@^3.3.4:
   version "3.3.4"
@@ -4137,36 +4105,6 @@ type-fest@^0.21.3:
   version "0.21.3"
   resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-0.21.3.tgz#d260a24b0198436e133fa26a524a6d65fa3b2e37"
   integrity sha512-t0rzBq87m3fVcduHDUFhKmyyX+9eo6WQjZvf51Ea/M0Q7+T374Jp1aUiyUl0GKxp8M/OETVHSDvmkyPgvX+X2w==
-
-uarray@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/uarray/-/uarray-1.0.0.tgz#e89bf0ea2129596f4bf653b66e53246ed6562b6c"
-  integrity sha512-LHmiAd5QuAv7pU2vbh+Zq9YOnqVK0H764p2Ozinpfy9ka58OID4IsGLiXsitqH7n0NAIDxvax1A/kDXpii/Ckg==
-
-udomdiff@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/udomdiff/-/udomdiff-1.1.0.tgz#1d0c4741b93a2ffd10728ca4cea15b277cc3082f"
-  integrity sha512-aqjTs5x/wsShZBkVagdafJkP8S3UMGhkHKszsu1cszjjZ7iOp86+Qb3QOFYh01oWjPMy5ZTuxD6hw5uTKxd+VA==
-
-uhandlers@^0.7.0:
-  version "0.7.0"
-  resolved "https://registry.yarnpkg.com/uhandlers/-/uhandlers-0.7.0.tgz#ab339b4bc8633fb23b718139fbd7d703b2f0f38b"
-  integrity sha512-MG6Q6Dc+xIfyFnHU8APpR916XWhnb+m30qVjPXxAmHUaVFmzUAcd6BCWws5LedyG43onCk1RRPNq0N02wcn4NA==
-  dependencies:
-    uarray "^1.0.0"
-
-uhtml@^3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/uhtml/-/uhtml-3.1.0.tgz#a5b821ce69c7b3ca3c86e4193919047574f94d27"
-  integrity sha512-OxX1LNtsieg9hdVV2fG7IGuk/BuemGDIGiv45KGTQxy37do7vK3EDjsa+KL1juLif1f0YelGqfnxzIrMRXHziQ==
-  dependencies:
-    "@webreflection/mapset" "^1.0.1"
-    "@webreflection/uparser" "^0.2.4"
-    "@webreflection/uwire" "^1.2.1"
-    async-tag "^0.2.0"
-    jsx2tag "^0.3.1"
-    udomdiff "^1.1.0"
-    uhandlers "^0.7.0"
 
 update-browserslist-db@^1.0.9:
   version "1.0.10"
