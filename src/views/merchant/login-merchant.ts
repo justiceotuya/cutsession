@@ -47,9 +47,9 @@ export default class LoginMerchant extends LoginClient {
             required: true
         },
         {
-            labelFor: "Access Type",
+            label: "Access Type",
             data: "data-accesstype",
-            label: "accessType",
+            labelFor: "accessType",
             type: 'accessType',
             name: "accessType",
             id: "accessType",

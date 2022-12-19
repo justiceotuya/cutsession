@@ -22,6 +22,7 @@ export default class extends AbstractView {
                     <div class="mb-5 w-full text-white mt-8  mx-auto px-2 md:px-0">
                         <div class="mb-6">
                             <h1 class="font-semibold text-custom-gold-light text-3xl md:text-4xl lg:text-6xl mb-10 md:leading-loose">Effortlessly book your studio sessions with CutSession</h1>
+
                                <a href="/login/client" class=" rounded-3xl bg-custom-gold py-2.5 px-5 text-lg mb-6 text-black" type="submit">Login as User</a>
 
                                  <a href="/login/merchant" class=" rounded-3xl bg-custom-gold py-2.5 px-5 text-lg mb-6 text-black" type="submit">Login as Merchant</a>

@@ -1,5 +1,5 @@
 import AbstractView from '../AbstractView';
-import model from '../../assets/prewedding.jpeg'
+import model from '../../assets/prewedding.jpg'
 import { API_URL } from '../../../config';
 import { stringify } from 'postcss';
 import axios from '../../lib';
