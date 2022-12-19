@@ -33,6 +33,7 @@ export default class BookingPage extends AbstractView {
   formInput: Record<string, any>[] = [
     {
       labelFor: "title",
+      data: "data-title",
       type: "text",
       label: "Title",
       name: "title",
@@ -42,6 +43,7 @@ export default class BookingPage extends AbstractView {
     },
     {
       labelFor: "date",
+      data: "data-date",
       label: "Date of session",
       type: 'date',
       name: "date",
@@ -51,6 +53,7 @@ export default class BookingPage extends AbstractView {
     },
     {
       labelFor: "notes",
+      data: "data-notes",
       type: "text",
       label: "Notes",
       inputType: 'textarea',
@@ -106,6 +109,7 @@ export default class BookingPage extends AbstractView {
         // if (currentMerchant) {
         //   window.location.href = `/bookings/${currentMerchant}`
         // }
+        alert("booking successful")
         history.back()
       }
     } catch (error) {
@@ -126,7 +130,6 @@ document.body.addEventListener('submit', e => {
 
     let data: Record<string, string> = {}
     for (const pair of formData.entries()) {
-      console.log(`${pair[0]}, ${pair[1]}`);
       data[pair[0]] = pair[1] as string
     }
     data["sessionId"] = window.location.pathname.split("/booking/")[1]
@@ -134,7 +137,6 @@ document.body.addEventListener('submit', e => {
     if (userData) {
       data["userId"] = JSON.parse(userData)?.userId
     }
-    console.log({ data })
     BookingPage.bookSession(data as Record<string, string>)
   }
 });

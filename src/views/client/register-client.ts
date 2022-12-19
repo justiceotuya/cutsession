@@ -34,6 +34,7 @@ export default class RegisterClient extends AbstractView {
     formInput: Record<string, any>[] = [
         {
             labelFor: "name",
+            data: "data-name",
             label: "Name",
             type: 'text',
             name: "name",
@@ -45,6 +46,7 @@ export default class RegisterClient extends AbstractView {
         },
         {
             labelFor: "email",
+            data: "data-email",
             label: "Email",
             type: 'email',
             name: "email",
@@ -55,6 +57,7 @@ export default class RegisterClient extends AbstractView {
         },
         {
             labelFor: "username",
+            data: "data-username",
             label: "Username",
             type: 'text',
             name: "username",
@@ -66,6 +69,7 @@ export default class RegisterClient extends AbstractView {
         },
         {
             labelFor: "phoneNumber",
+            data: "data-phonenumber",
             label: "Phone Number",
             type: 'text',
             name: "phoneNumber",
@@ -76,6 +80,7 @@ export default class RegisterClient extends AbstractView {
         },
         {
             labelFor: "cityOfResidence",
+            data: "data-cityofresidence",
             label: "City Of Residence",
             type: 'text',
             name: "cityOfResidence",
@@ -86,6 +91,7 @@ export default class RegisterClient extends AbstractView {
         },
         {
             labelFor: "dob",
+            data: "data-dob",
             label: "Date of birth",
             type: 'date',
             name: "dob",
@@ -95,6 +101,7 @@ export default class RegisterClient extends AbstractView {
         },
         {
             labelFor: "password",
+            data: "data-password",
             label: "Password",
             type: 'password',
             name: "password",
@@ -151,9 +158,9 @@ document.body.addEventListener('submit', e => {
 
         let data: Record<string, string> = {}
         for (const pair of formData.entries()) {
-            console.log(`${pair[0]}, ${pair[1]}`);
             data[pair[0]] = pair[1] as string
         }
+
 
         RegisterClient.registerUser(data as Record<string, string>)
     }

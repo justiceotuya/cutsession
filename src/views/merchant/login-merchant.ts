@@ -25,6 +25,7 @@ export default class LoginMerchant extends LoginClient {
     formInput = [
         {
             labelFor: "username",
+            data: "data-username",
             label: "Username",
             type: 'text',
             name: "username",
@@ -36,6 +37,7 @@ export default class LoginMerchant extends LoginClient {
         },
         {
             labelFor: "password",
+            data: "data-password",
             label: "Password",
             type: 'password',
             name: "password",
@@ -43,6 +45,17 @@ export default class LoginMerchant extends LoginClient {
             placeholder: "Type your password",
             minLength: "6",
             required: true
+        },
+        {
+            labelFor: "Access Type",
+            data: "data-accesstype",
+            label: "accessType",
+            type: 'accessType',
+            name: "accessType",
+            id: "accessType",
+            placeholder: "enter accessType",
+            disabled: true,
+            value: "MERCHANT"
         }
     ]
 
@@ -52,7 +65,6 @@ export default class LoginMerchant extends LoginClient {
 
 
     static clickActionButton() {
-        console.log("clicked Login")
         return undefined
     }
 
@@ -96,8 +108,6 @@ document.body.addEventListener('submit', e => {
         var username = formData.get('username') as string;
         var password = formData.get('password') as string;
         LoginMerchant.login({ username, password })
-        // let test = new Login({})
-        // console.log(Login.clickActionButton())
 
     }
 });

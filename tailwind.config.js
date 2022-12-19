@@ -5,6 +5,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+       backgroundImage: {
+        'studio': "url('/src/assets/studio.jpg')",
+      },
       colors: {
         "custom-gold": "#E7D27C",
         "custom-gold-light": "#fdfbf2",

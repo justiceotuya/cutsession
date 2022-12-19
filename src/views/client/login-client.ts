@@ -26,6 +26,7 @@ export default class LoginClient extends AbstractView {
     formInput: Record<string, any>[] = [
         {
             labelFor: "username",
+            data: "data-username",
             label: "Username",
             type: 'text',
             name: "username",
@@ -37,12 +38,24 @@ export default class LoginClient extends AbstractView {
         },
         {
             labelFor: "password",
+            data: "data-password",
             label: "Password",
             type: 'password',
             name: "password",
             id: "password",
             placeholder: "Type your password",
             minLength: "6", required: true
+        },
+        {
+            label: "Access Type",
+            data: "data-accesstype",
+            labelFor: "accessType",
+            type: 'accessType',
+            name: "accessType",
+            id: "accessType",
+            placeholder: "enter accessType",
+            disabled: true,
+            value: "USER"
         }
     ]
 
@@ -86,7 +99,6 @@ document.body.addEventListener('submit', e => {
 
         let data: Record<string, string> = {}
         for (const pair of formData.entries()) {
-            console.log(`${pair[0]}, ${pair[1]}`);
             data[pair[0]] = pair[1] as string
         }
         LoginClient.loginUser(data as Record<string, string>)

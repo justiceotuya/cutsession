@@ -50,7 +50,6 @@ export default class BookedSession extends AbstractView {
         };
         try {
             const response = await axios.request(options);
-            console.log(response.data)
             return response.data
         } catch (error) {
             console.error(error);
@@ -111,6 +110,7 @@ export default class BookedSession extends AbstractView {
     formInput: Record<string, any>[] = [
         {
             labelFor: "city",
+            data: "data-city",
             label: "City",
             type: 'text',
             name: "city",
@@ -121,6 +121,7 @@ export default class BookedSession extends AbstractView {
         },
         {
             labelFor: "merchant",
+            data: "data-merchant",
             label: "Merchant",
             type: 'text',
             name: "merchant",
@@ -130,6 +131,7 @@ export default class BookedSession extends AbstractView {
         },
         {
             labelFor: "period",
+            data: "data-period",
             type: "select",
             label: "Period",
             inputType: 'select',
@@ -140,6 +142,7 @@ export default class BookedSession extends AbstractView {
         {
             label: "Session start",
             labelFor: "startsAt",
+            data: "data-startsat",
             type: 'datetime-local',
             name: "startsAt",
             id: "startsAt",
@@ -147,6 +150,7 @@ export default class BookedSession extends AbstractView {
         },
         {
             labelFor: "endsAt",
+            data: "data-endsat",
             type: 'datetime-local',
             name: "endsAt",
             id: "endsAt",
@@ -157,6 +161,7 @@ export default class BookedSession extends AbstractView {
 
     async getHtml() {
         return `
+
        ${this.pageNavbar()}
             <div class=" flex gap-8 flex-wrap bg-custom-gray-800 min-h-screen">
             <div
@@ -175,6 +180,7 @@ export default class BookedSession extends AbstractView {
                 </div>
             </div>
         </div>
+
     `;
     }
 }
@@ -236,8 +242,6 @@ window.addEventListener('DOMContentLoaded', async () => {
 
 
             if (value === "Single") {
-                console.log("value", value)
-                console.log("endsAt", endsAt);
                 (endsAt as HTMLInputElement).value = ""
                 endsAtContainer?.classList.add("hidden")
                 // (endsAt.target as HTMLSelectElement).value

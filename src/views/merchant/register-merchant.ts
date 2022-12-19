@@ -29,6 +29,7 @@ export default class RegisterMerchant extends AbstractView {
     formInput: Record<string, any>[] = [
         {
             labelFor: "name",
+            data: "data-name",
             label: "Name",
             type: 'text',
             name: "name",
@@ -40,6 +41,7 @@ export default class RegisterMerchant extends AbstractView {
         },
         {
             labelFor: "email",
+            data: "data-email",
             label: "Email",
             type: 'email',
             name: "email",
@@ -50,6 +52,7 @@ export default class RegisterMerchant extends AbstractView {
         },
         {
             labelFor: "username",
+            data: "data-username",
             label: "Username",
             type: 'text',
             name: "username",
@@ -61,6 +64,7 @@ export default class RegisterMerchant extends AbstractView {
         },
         {
             labelFor: "phoneNumber",
+            data: "data-phonenumber",
             label: "Phone Number",
             type: 'text',
             name: "phoneNumber",
@@ -71,6 +75,7 @@ export default class RegisterMerchant extends AbstractView {
         },
         {
             labelFor: "cityOfOperation",
+            data: "data-cityofoperation",
             label: "City Of Operation",
             type: 'text',
             name: "cityOfOperation",
@@ -81,6 +86,7 @@ export default class RegisterMerchant extends AbstractView {
         },
         {
             labelFor: "password",
+            data: "data-password",
             label: "Password",
             type: 'password',
             name: "password",
@@ -133,7 +139,6 @@ document.body.addEventListener('submit', e => {
 
         let data: TRegisterMerchant | Record<string, string> = {}
         for (const pair of formData.entries()) {
-            console.log(`${pair[0]}, ${pair[1]}`);
             data[pair[0]] = pair[1] as string
         }
 

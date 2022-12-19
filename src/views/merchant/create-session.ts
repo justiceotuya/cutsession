@@ -26,6 +26,7 @@ export default class CreateSession extends AbstractView {
         {
             label: "Session start",
             labelFor: "startsAt",
+            data: "data-startsat",
             type: 'datetime-local',
             name: "startsAt",
             id: "startsAt",
@@ -33,6 +34,7 @@ export default class CreateSession extends AbstractView {
         },
         {
             labelFor: "endsAt",
+            data: "data-endsat",
             type: 'datetime-local',
             name: "endsAt",
             id: "endsAt",
@@ -41,6 +43,7 @@ export default class CreateSession extends AbstractView {
         },
         {
             labelFor: "type",
+            data: "data-type",
             type: "select",
             label: "Week type",
             inputType: 'select',
@@ -98,6 +101,7 @@ export default class CreateSession extends AbstractView {
         try {
             const request = await axios.request(options)
             if (request.status === 200) {
+                alert("session created")
                 window.location.href = `/merchant`
             }
         } catch (error) {
@@ -118,7 +122,6 @@ document.body.addEventListener('submit', e => {
 
         let data: Record<string, string> = {}
         for (const pair of formData.entries()) {
-            console.log(`${pair[0]}, ${pair[1]}`);
             data[pair[0]] = pair[1] as string
         }
 

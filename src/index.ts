@@ -46,20 +46,20 @@ const navigateTo = (url: string) => {
     router();
 };
 
+const routes = [
+    { path: '/', view: Home, protected: false },
+    { path: '/merchants', view: MerchantList, protected: true },
+    { path: '/login/client', view: LoginClient, protected: false },
+    { path: '/login/merchant', view: LoginMerchant, protected: false },
+    { path: '/register/client', view: RegisterClient, protected: false },
+    { path: '/register/merchant', view: RegisterMerchant, protected: false },
+    { path: '/merchant/:id', view: Merchant, protected: true },
+    { path: '/merchant', view: Merchant, protected: true },
+    { path: '/booking/:id', view: BookingPage, protected: true },
+    { path: '/bookings', view: BookedSession, protected: true },
+    { path: '/create-session', view: CreateSession, protected: true },
+];
 const router = async () => {
-    const routes = [
-        { path: '/', view: Home },
-        { path: '/merchants', view: MerchantList },
-        { path: '/login/client', view: LoginClient },
-        { path: '/login/merchant', view: LoginMerchant },
-        { path: '/register/client', view: RegisterClient },
-        { path: '/register/merchant', view: RegisterMerchant },
-        { path: '/merchant/:id', view: Merchant },
-        { path: '/merchant', view: Merchant },
-        { path: '/booking/:id', view: BookingPage },
-        { path: '/bookings', view: BookedSession },
-        { path: '/create-session', view: CreateSession },
-    ];
 
     // Test each route for a potential match.
     const potentialMatches = routes.map(route => {
@@ -73,7 +73,7 @@ const router = async () => {
 
     if (!match) {
         match = {
-            route: { path: '*', view: ErrorPage },
+            route: { path: '*', view: ErrorPage, protected: false },
             result: [
                 location.pathname
             ]
@@ -94,7 +94,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.addEventListener('click', e => {
         requestAnimationFrame(() => {
             if (url !== location.href) {
-                console.log('url changed');
                 url = location.href
             }
             let dataLink = (e.target as HTMLAnchorElement).matches('[data-link]')
@@ -106,6 +105,34 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    let isLoggedin = localStorage.getItem('data')
+    let isMerchant: boolean | null = null
+    let isUser: boolean | null = null
+    if (isLoggedin) {
+        isMerchant = JSON.parse(isLoggedin).type === "MERCHANT"
+        isUser = JSON.parse(isLoggedin).type === "CLIENT"
+    }
+    let currentRoute: any
+    if (window.location.pathname.startsWith("/merchant/")) {
+        currentRoute = routes.find(r => r.path.startsWith("/merchant/"))
+    } else if (window.location.pathname.startsWith("/booking/")) {
+        currentRoute = routes.find(r => r.path.startsWith("/booking/"))
+    } else {
+        currentRoute = routes.find(r => r.path === window.location.pathname)
+    }
+
+    const authRoutes = ['/', '/login/client', '/login/merchant', '/register/client', '/register/merchant']
+
+    if (!isLoggedin && currentRoute?.protected) {
+        window.location.href = "/"
+    } else if (isLoggedin && authRoutes.includes(currentRoute.path)) {
+        if (isMerchant) {
+            window.location.href = "/merchant"
+        }
+        if (isUser) {
+            window.location.href = "/merchants"
+        }
+    }
 
 
     router();

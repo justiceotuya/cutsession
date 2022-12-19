@@ -1,3 +1,7 @@
+type InputType = {
+  type: string, name: string, id: string, placeholder: string, minLength: string, maxLength: string, required: string, data: string, value: string, disabled: string, options?: any
+}
+
 export default class AbstractView {
   params: any
   formInput: Record<string, string>[]
@@ -37,22 +41,16 @@ export default class AbstractView {
   linkToLoginOrRegister() {
     return `<p class="text-sm text-custom-gray-400 text-center">${this.linkToLoginOrRegisterText ?? ""}<a class="text-black underline " href="${this.linkToLoginOrRegisterLink ?? ""}"> ${this.linkToLoginOrRegisterlinkText ?? ""}</a></p>`
   }
-  renderInput({ type, name, id, placeholder, minLength, maxLength, required }: {
-    type: string, name: string, id: string, placeholder: string, minLength: string, maxLength: string, required: string
-  }) {
-    return `   <input type="${type}" name="${name}" id="${id}" placeholder="${placeholder}"  minLength="${minLength}" maxLength="${maxLength}" class="bg-white rounded border border-primary h-45px px-2 py-3 w-full placeholder:text-sm placeholder:text-custom-gray-500" ${required ? "required" : ""}/>`
+  renderInput({ type, name, id, placeholder, minLength, maxLength, required, data, value, disabled }: InputType) {
+    return `   <input ${data}="${name}" type="${type}" name="${name}" id="${id}" placeholder="${placeholder}"  minLength="${minLength}" maxLength="${maxLength}"
+   value="${value || ""}" class="bg-white rounded border border-primary h-45px px-2 py-3 w-full placeholder:text-sm placeholder:text-custom-gray-500" ${required ? "required" : ""} disabled="${disabled}"/>`
   }
-  renderTextArea({ type, name, id, placeholder, minLength, maxLength, required }: {
-    type: string, name: string, id: string, placeholder: string, minLength: string, maxLength: string, required: string
-  }) {
-    return `<textarea type="${type}" name="${name}" id="${id}" placeholder="${placeholder}" minLength="${minLength}" maxLength="${maxLength}" class="bg-white rounded border border-primary h-full px-2 py-3 w-full placeholder:text-sm placeholder:text-custom-gray-500 " ${required ? "required" : ""} ></textarea>`
+  renderTextArea({ type, name, id, placeholder, minLength, maxLength, required, data, value, disabled }: InputType) {
+    return `<textarea ${data}="${name}" type="${type}" name="${name}" id="${id}" placeholder="${placeholder}" minLength="${minLength}" maxLength="${maxLength}" value="${value || ""}" class="bg-white rounded border border-primary h-full px-2 py-3 w-full placeholder:text-sm placeholder:text-custom-gray-500 " ${required ? "required" : ""} disabled="${disabled}"></textarea>`
   }
 
-  renderSelect({ type, name, id, placeholder, options, required }: {
-    type: string, name: string, id: string, placeholder: string, options: string[]
-    , required: string
-  }) {
-    return `<select type="${type}" name="${name}" id="${id}" placeholder="${placeholder}" class="bg-white rounded border border-primary h-45px px-2 py-3 w-full placeholder:text-sm placeholder:text-custom-gray-500" ${required ? "required" : ""} >
+  renderSelect({ type, name, id, placeholder, options, required, data, value, disabled }: InputType) {
+    return `<select ${data}="${name}" type="${type}" name="${name}" id="${id}" placeholder="${placeholder}" value="${value || ""}" class="bg-white rounded border border-primary h-45px px-2 py-3 w-full placeholder:text-sm placeholder:text-custom-gray-500" ${required ? "required" : ""}disabled="${disabled}" >
       ${options.map(item => ` <option value="${item}">${item}</option>`)}
     </select>`
   }
@@ -70,14 +68,13 @@ export default class AbstractView {
 
   getInput() {
     return this.formInput.map(item => {
-      const { type, placeholder, name, label, labelFor, id, inputType } = item
+      const { type, placeholder, name, label, labelFor, id, inputType, data } = item
       const customInput = inputType === "textarea" ? "textarea" : "input"
       return `
                     <div class="flex flex-col mb-2" id="container-${id}">
                         <label for="${labelFor}" class="text-sm mb-2">${label}</label>
                         <div class="w-full relative">
                           ${this.renderInputFeilds(item)}
-                           ${type === "password" ? `<button type="button" class="border absolute right-3 top-3 ">toggle</button>` : ''}
                             </div>
                     </div>
                       `
@@ -88,6 +85,8 @@ export default class AbstractView {
     link: string;
     text: string;
   }[] = []
+
+
   pageNavbar() {
     return `
     <div class="h-16 border-primary border-b flex items-center justify-between px-12 gap-2 flex-wrap">
@@ -109,6 +108,7 @@ export default class AbstractView {
   }
   async getHtml() {
     return `
+    <div>
         <div class="h-screen w-screen overflow-x-hidden">
             ${this.pageNavbar()}
             <div class="flex h-[calc(100vh-64px)]">
@@ -136,6 +136,7 @@ export default class AbstractView {
                 </div>
             </div>
         </div>
+        </div>
     `;
   }
 }
@@ -148,24 +149,5 @@ window.addEventListener('click', async (e) => {
     localStorage.removeItem('data')
     localStorage.removeItem("currentMerchant")
     window.location.href = "/"
-    // actual logic, e.g. validate the form
-    // var formEl = document.forms[formId];
-
-    // var formData = new FormData(formEl);
-
-    // let data: Record<string, string> = {}
-    // for (const pair of formData.entries()) {
-    //   data[pair[0]] = pair[1] as string
-    // }
-
-    // let userData = localStorage.getItem('data')
-    // if (userData) {
-    //   let userType = JSON.parse(userData).type;
-    //   if (userType === "MERCHANT") {
-    //     data["merchantId"] = JSON.parse(userData).merchantId
-    //   }
-    // }
-
-
   }
 });
