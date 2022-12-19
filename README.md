@@ -1,6 +1,6 @@
 # Cutsession
 
-Cutsession is a platform that helps clients look for and book studio sessions and helps merchant create studio sessions. it is a market place for clients/ users to look for and book studio sessions
+[Cutsession](cutscene.netlify.app/) is a platform that helps clients look for and book studio sessions and helps merchant create studio sessions. it is a market place for clients/ users to look for and book studio sessions
 
 ## Motivation
 
